@@ -18,5 +18,5 @@ Returns a JSON object containing information about that property.
 
 Acknowledgements
 -
-256cats' ASPBrowser - https://github.com/256cats/ASPBrowser 
-PHP Simple HTML DOM Parser -  http://sourceforge.net/projects/simplehtmldom/
+*256cats' ASPBrowser - https://github.com/256cats/ASPBrowser 
+*PHP Simple HTML DOM Parser -  http://sourceforge.net/projects/simplehtmldom/
