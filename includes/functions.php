@@ -26,18 +26,43 @@ function getBins(simple_html_dom $dom) {
 
         $dateEl = $bin->find('.dateWrapper-next',0);
         if($dateEl) {
-            $nextCollection = $dateEl->find('.bin-date-number', 0)->innertext . ' ' . $dateEl->find('.bin-date-month', 0)->innertext . ' ' . $dateEl->find('.bin-date-year', 0)->innertext;
+            if($bin->find('.todayNotification')) {
+                //next collection is today
+                $nextCollection = date('Y-m-dT00:00:00+00:00');
+            } else {
+                $nextCollection = $dateEl->find('.bin-date-number', 0)->innertext . ' ' . $dateEl->find('.bin-date-month', 0)->innertext . ' ' . $dateEl->find('.bin-date-year', 0)->innertext;
+
+            }
             $lastCollection = $bin->find('.bin-lastcollection', 0)->innertext;
 
             $vars['collections'][$bin->find('div', 0)->class] = array(
-                'nextCollection' => $nextCollection,
-                'lastCollection' => $lastCollection,
+                'nextCollection' => date('c',strtotime($nextCollection)),
+                'lastCollection' => date('c',strtotime($lastCollection)),
             );
         }
 
     }
 
     $vars['binCalendar'] = $dom->find('#ContentPlaceHolder1_BinActions a', 1)->href;
+
+    $nextDate = time()+(60*60*24*365);  // 1 year from now
+    //find next bin to be collected
+    foreach($vars['collections'] as $bin => $collection) {
+        $thisDate = strtotime($collection['nextCollection']);
+        if($thisDate < $nextDate) {
+            $nextDate = $thisDate;
+            $nextBin = $bin;
+        }
+    }
+    $vars['nextCollection']['day'] = date('l',$nextDate);
+    $vars['nextCollection']['date'] = date('c',$nextDate);
+
+    //find all bins on that day
+    foreach($vars['collections'] as $bin => $collection) {
+        if(strtotime($collection['nextCollection']) == $nextDate) $vars['nextCollection']['bins'][] = $bin;
+    }
+
+
 
     return $vars;
 }
