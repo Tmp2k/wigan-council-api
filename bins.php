@@ -53,7 +53,7 @@ function getBins(simple_html_dom $dom) {
 
 $output = array();
 
-if(!empty($_GET['postcode']) && preg_match('/^(WN,M,WA)[0-9]+ ?[0-9]{1,2}[A-Z]{1,2}$/i', $_GET['postcode'])) {
+if(!empty($_GET['postcode']) && preg_match('/^[WM][AN]?[0-9]{1,2} ?[0-9]{1,2}[A-Z]{1,2}$/i', $_GET['postcode'])) {
 
 	// we have a valid postcode so lets go...
 	$url = 'https://apps.wigan.gov.uk/MyNeighbourhood/';
