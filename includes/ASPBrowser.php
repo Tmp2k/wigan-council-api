@@ -1,9 +1,9 @@
 <?php
 include_once __DIR__.'/simple_html_dom.php';
-define('COOKIE_FILE', __DIR__.'/cookie.txt');
+define('COOKIE_FILE', $GLOBALS['app']['path'].'/data/cookie.txt');
 @unlink(COOKIE_FILE); //clear cookies before we start
 
-define('CURL_LOG_FILE', __DIR__.'/request.txt');
+define('CURL_LOG_FILE',$GLOBALS['app']['path'].'/data/request.txt');
 @unlink(CURL_LOG_FILE);//clear curl log
 class ASPBrowser {
     public $exclude = array();
