@@ -53,7 +53,7 @@ function getBins(simple_html_dom $dom) {
 
 $output = array();
 
-if(!empty($_GET['postcode']) && preg_match('/^WN[0-9] ?[0-9]{1,2}[A-Z]{1,2}$/i', $_GET['postcode'])) {
+if(!empty($_GET['postcode']) && preg_match('/^(WN,M,WA)[0-9] ?[0-9]{1,2}[A-Z]{1,2}$/i', $_GET['postcode'])) {
 
 	// we have a valid postcode so lets go...
 	$url = 'https://apps.wigan.gov.uk/MyNeighbourhood/';
@@ -98,7 +98,7 @@ if(!empty($_GET['postcode']) && preg_match('/^WN[0-9] ?[0-9]{1,2}[A-Z]{1,2}$/i',
 
 	$resultPage->clear();
 } else {
-	$output['errMsg'] = 'Invalid postcode, must be full postcode beginning WN.';
+	$output['errMsg'] = 'Invalid postcode, must be full postcode covered by Wigan council.';
 }
 
 
