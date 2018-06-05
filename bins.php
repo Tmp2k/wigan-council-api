@@ -44,43 +44,6 @@ function getBins(simple_html_dom $dom) {
 }
 
 
-function getTax(simple_html_dom $dom) {
-
-	$vars['band'] = $dom->find('.CTBand span', 0)->innertext;
-	$vars['amount'] = $dom->find('.CTAmount', 0)->innertext;
-	$vars['year'] = $dom->find('.CTYear span', 0)->innertext;
-	
-
-	return $vars;
-}
-
-function getCouncil(simple_html_dom $dom) {
-
-	$vars['ward'] = $dom->find('#Ward p', 0)->innertext;
-	
-	// note - the classes on the webstie are mixed up!  .CouncillorList is actually the list of MPs and visa-versa
-
-	foreach($dom->find('.CouncillorList li a') as $el) {
-		$vars['mps'][] = array(
-			'name' => $el->find('.MPName',0)->innertext,
-			'link' => $el->href,
-			'image' => substr($el->find('.MPImage',0)->style,16,-2),
-			'party' => $el->find('.MPParty',0)->innertext,
-		);
-	}
-
-	foreach($dom->find('.MPList li a') as $el) {
-
-		$vars['councillors'][] = array(
-				'name' => $el->find('.CllrName',0)->innertext,
-				'link' => $el->href,
-				'image' => substr($el->find('.CllrImage',0)->style,16,-2),
-				'party' => $el->find('.CllrParty',0)->innertext,
-		);
-	}
-
-	return $vars;
-}
 
 
 
@@ -98,10 +61,17 @@ if(!empty($_GET['postcode']) && preg_match('/^WN[0-9] ?[0-9]{1,2}[A-Z]{1,2}$/i',
 	$browser->doGetRequest($url); 
 	$resultPage = $browser->doPostRequest($url, array('ctl00$ContentPlaceHolder1$txtPostcode' => $_GET['postcode'])); 
 
-	if(!empty($_GET['uprn'])) {
+	// we only have a postcode so lets return some addresses...
+	$addresses = getAddresses($resultPage);
 
-		// we also have a UPRN so lets check it...
-		$uprn = strtoupper(trim($_GET['uprn']));
+	if($addresses['No Address records found.']) {
+		$output['errMsg'] = 'No addresses found for that postcode.';
+	} else {
+		
+		// set poiner to start of array
+		reset($addresses);
+		// get first UPRN
+		$uprn = key($addresses);
 
 		if(preg_match('/^UPRN[0-9]+$/i', $uprn)) {
 			
@@ -109,11 +79,7 @@ if(!empty($_GET['postcode']) && preg_match('/^WN[0-9] ?[0-9]{1,2}[A-Z]{1,2}$/i',
 
 			if($resultPage->find('#ContentPlaceHolder1_pnlAreaDetails',0)) {
 				// found data for this UPRN...
-				$output = array(
-					'bins' => getBins($resultPage),
-					'tax' => getTax($resultPage),
-					'contacts' => getCouncil($resultPage)
-				);
+				$output = getBins($resultPage);
 
 			} else {
 				// the UPRN was not found...
@@ -125,24 +91,10 @@ if(!empty($_GET['postcode']) && preg_match('/^WN[0-9] ?[0-9]{1,2}[A-Z]{1,2}$/i',
 			// the UPRN is invalid...
 			$output['errMsg'] = 'UPRN is invalid.';
 		}
-		
-
-	} else {
-
-		// we only have a postcode so lets return some addresses...
-		$addresses = getAddresses($resultPage);
-
-		if($addresses['No Address records found.']) {
-			$output['errMsg'] = 'No addresses found for that postcode.';
-		} else {
-			$output = $addresses;
-		}
-		
-		
 
 	}
-	
 
+	
 
 	$resultPage->clear();
 } else {
