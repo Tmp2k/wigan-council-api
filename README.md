@@ -16,6 +16,7 @@ GET /index.php?postcode=WN1+2RW&uprn=UPRN100011822616
 Returns a JSON object containing information about that property.
 
 
-
-
-Based on 256cats' ASPBrowser - https://github.com/256cats/ASPBrowser 
+Acknowledgements
+-
+256cats' ASPBrowser - https://github.com/256cats/ASPBrowser 
+PHP Simple HTML DOM Parser -  http://sourceforge.net/projects/simplehtmldom/
