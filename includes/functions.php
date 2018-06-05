@@ -62,6 +62,7 @@ function getBins(simple_html_dom $dom) {
         if(strtotime($collection['nextCollection']) == $nextDate) $vars['nextCollection']['bins'][] = $bin;
     }
 
+    $vars['time'] = date('c');
 
 
     return $vars;
