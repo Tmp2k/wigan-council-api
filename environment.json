@@ -1,0 +1,9 @@
+{
+  "default": {
+    "wiganUrl" : "https://apps.wigan.gov.uk/MyNeighbourhood/",
+    "postcodeMatch" : "/^(WA3|WN[123567]|M2[89]|M46) ?[0-9]{1,2}[A-Z]{1,2}$/i"
+  },
+  "wigan.nemiah.uk.vm": {
+    "debug" : 1
+  }
+}

@@ -1,2 +1,4 @@
-request.txt
-cookie.txt
+.vagrant
+.idea
+includes/request.txt
+includes/cookie.txt
