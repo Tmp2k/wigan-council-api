@@ -1,7 +1,5 @@
 <IfModule mod_rewrite.c>
 
-
-
     RewriteEngine On
 
     # Redirect Trailing Slashes If Not A Folder...

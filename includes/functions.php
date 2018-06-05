@@ -25,13 +25,15 @@ function getBins(simple_html_dom $dom) {
     foreach($dom->find('.BinsRecycling') as $bin) {
 
         $dateEl = $bin->find('.dateWrapper-next',0);
-        $nextCollection = $dateEl->find('.bin-date-number', 0)->innertext .' '. $dateEl->find('.bin-date-month', 0)->innertext .' '. $dateEl->find('.bin-date-year', 0)->innertext;
-        $lastCollection = $bin->find('.bin-lastcollection',0)->innertext;
+        if($dateEl) {
+            $nextCollection = $dateEl->find('.bin-date-number', 0)->innertext . ' ' . $dateEl->find('.bin-date-month', 0)->innertext . ' ' . $dateEl->find('.bin-date-year', 0)->innertext;
+            $lastCollection = $bin->find('.bin-lastcollection', 0)->innertext;
 
-        $vars['collections'][$bin->find('div',0)->class] = array(
-            'nextCollection' => $nextCollection,
-            'lastCollection' => $lastCollection,
-        );
+            $vars['collections'][$bin->find('div', 0)->class] = array(
+                'nextCollection' => $nextCollection,
+                'lastCollection' => $lastCollection,
+            );
+        }
 
     }
 
