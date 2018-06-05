@@ -1,6 +1,7 @@
 <?php
 
 error_reporting(E_ALL ^ E_NOTICE);
+date_default_timezone_set('Europe/London');
 
 
 $GLOBALS['app']['path'] = realpath(__DIR__).'/';
