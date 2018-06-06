@@ -54,7 +54,16 @@ function getBins(simple_html_dom $dom) {
             $nextBin = $bin;
         }
     }
-    $vars['nextCollection']['day'] = date('l',$nextDate);
+
+    //friendly collection day
+    $days = (strtotime(date('Y-m-d',$nextDate)) - strtotime(date('Y-m-d'))) / 60 / 60 / 24;
+    if($days == 0) {
+        $vars['nextCollection']['day'] = 'Today';
+    } else if($days == 1) {
+        $vars['nextCollection']['day'] = 'Tomorrow';
+    } else {
+        $vars['nextCollection']['day'] = date('l', $nextDate);
+    }
     $vars['nextCollection']['date'] = date('c',$nextDate);
 
     //find all bins on that day
@@ -62,7 +71,6 @@ function getBins(simple_html_dom $dom) {
         if(strtotime($collection['nextCollection']) == $nextDate) $vars['nextCollection']['bins'][] = $bin;
     }
 
-    $vars['time'] = date('c');
 
 
     return $vars;
