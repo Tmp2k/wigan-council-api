@@ -28,6 +28,7 @@ if(!empty($_GET['postcode']) && validatePostcode($_GET['postcode'])) {
         do {
             // get current UPRN
             $uprn = key($addresses);
+            echo "getting $uprn...";
             if(preg_match('/^UPRN[0-9]+$/i', $uprn)) {
 
                 $resultPage = $browser->doPostBack($url, 'ctl00$ContentPlaceHolder1$lstAddresses',$uprn);
