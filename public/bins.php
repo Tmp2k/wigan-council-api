@@ -22,28 +22,32 @@ if(!empty($_GET['postcode']) && validatePostcode($_GET['postcode'])) {
 	} else {
 		
 		// set poiner to start of array
-		reset($addresses);
-		// get first UPRN
-		$uprn = key($addresses);
+        reset($addresses);
 
-		if(preg_match('/^UPRN[0-9]+$/i', $uprn)) {
-			
-			$resultPage = $browser->doPostBack($url, 'ctl00$ContentPlaceHolder1$lstAddresses',$uprn); 
 
-			if($resultPage->find('#ContentPlaceHolder1_pnlAreaDetails',0)) {
-				// found data for this UPRN...
-				$output = getBins($resultPage);
+        do {
+            // get current UPRN
+            $uprn = key($addresses);
+            if(preg_match('/^UPRN[0-9]+$/i', $uprn)) {
 
-			} else {
-				// the UPRN was not found...
-				$output['errMsg'] = 'No data for this UPRN.';
-			}
+                $resultPage = $browser->doPostBack($url, 'ctl00$ContentPlaceHolder1$lstAddresses',$uprn);
 
-			
-		} else {
-			// the UPRN is invalid...
-			$output['errMsg'] = 'UPRN is invalid.';
-		}
+                if($resultPage->find('#ContentPlaceHolder1_pnlAreaDetails',0)) {
+                    // found data for this UPRN...
+                    $output = getBins($resultPage);
+
+
+                } else {
+                    // the UPRN was not found...
+                    $output['errMsg'] = 'No data for this UPRN.';
+                }
+
+
+            } else {
+                // the UPRN is invalid...
+                $output['errMsg'] = 'UPRN is invalid.';
+            }
+        } while (empty($output['binCalendar']) && next($addresses) !== false);
 
 	}
 
