@@ -23,9 +23,9 @@ if(!empty($_GET['postcode']) && validatePostcode($_GET['postcode'])) {
 		
 		// set poiner to start of array
         reset($addresses);
+        if(next($addresses) === false) reset($addresses);
 
-
-        do {
+        //do {
             // get current UPRN
             $uprn = key($addresses);
             echo "getting $uprn...";
@@ -49,7 +49,7 @@ if(!empty($_GET['postcode']) && validatePostcode($_GET['postcode'])) {
                 // the UPRN is invalid...
                 $output['errMsg'] = 'UPRN is invalid.';
             }
-        } while (empty($output['binCalendar']) && next($addresses) !== false);
+        //} while (empty($output['binCalendar']) && next($addresses) !== false);
 
 	}
 
