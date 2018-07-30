@@ -28,7 +28,7 @@ if(!empty($_GET['postcode']) && validatePostcode($_GET['postcode'])) {
         //do {
             // get current UPRN
             $uprn = key($addresses);
-            echo "getting $uprn...";
+
             if(preg_match('/^UPRN[0-9]+$/i', $uprn)) {
 
                 $resultPage = $browser->doPostBack($url, 'ctl00$ContentPlaceHolder1$lstAddresses',$uprn);
@@ -36,7 +36,6 @@ if(!empty($_GET['postcode']) && validatePostcode($_GET['postcode'])) {
                 if($resultPage->find('#ContentPlaceHolder1_pnlAreaDetails',0)) {
                     // found data for this UPRN...
                     $output = getBins($resultPage);
-                    print_r($output);
 
 
                 } else {
