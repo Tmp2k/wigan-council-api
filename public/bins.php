@@ -50,6 +50,7 @@ if(!empty($_GET['postcode']) && validatePostcode($_GET['postcode'])) {
             }
         //} while (empty($output['binCalendar']) && next($addresses) !== false);
         $output['addresses'] = $addresses;
+        $output['postcode'] = $postcode;
 	}
 
 	
