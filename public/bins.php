@@ -49,7 +49,7 @@ if(!empty($_GET['postcode']) && validatePostcode($_GET['postcode'])) {
                 $output['errMsg'] = 'UPRN is invalid.';
             }
         //} while (empty($output['binCalendar']) && next($addresses) !== false);
-
+        $output['addresses'] = $addresses;
 	}
 
 	
