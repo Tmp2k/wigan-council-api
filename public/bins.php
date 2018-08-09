@@ -30,6 +30,7 @@ if(!empty($_GET['postcode']) && validatePostcode($_GET['postcode'])) {
         //do {
             // get current UPRN
             $uprn = key($addresses);
+            if(!empty($_GET['uprn']) && validateUprn($_GET['uprn'])) $uprn = $_GET['uprn'];
 
             if(preg_match('/^UPRN[0-9]+$/i', $uprn)) {
 

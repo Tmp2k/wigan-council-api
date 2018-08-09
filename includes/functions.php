@@ -122,3 +122,9 @@ function validatePostcode($postcode) {
     return preg_match($GLOBALS['environment']->postcodeMatch, $postcode);
 
 }
+
+function validateUprn($uprn) {
+
+    return preg_match($GLOBALS['environment']->uprnMatch, $uprn);
+
+}
