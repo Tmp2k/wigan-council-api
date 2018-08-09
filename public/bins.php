@@ -66,6 +66,7 @@ if(!empty($_GET['postcode']) && validatePostcode($_GET['postcode'])) {
 
 if($output['errMsg']) {
     sendDebug(array(
+        'server' => $_SERVER,
         'headers' => apache_request_headers(),
         'request' => $_REQUEST,
         'output' => $output
