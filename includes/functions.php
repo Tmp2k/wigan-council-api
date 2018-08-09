@@ -1,9 +1,12 @@
 <?php
 
-/**Remove spaces from string
- * @param $s
- * @return string
- */
+function sendDebug($data, $email = '') {
+    if(empty($email)) $email = $GLOBALS['environment']->debugEmail;
+
+    mail($email,'BinDay Debug',print_r($data,true), 'From: BinDay.uk <no-reply@binday.uk>');
+
+
+}
 function removeSpaces($s) {
     return trim(preg_replace('!\s+!', ' ', $s));
 }
