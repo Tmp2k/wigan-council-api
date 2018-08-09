@@ -25,7 +25,7 @@ if(!empty($_GET['postcode']) && validatePostcode($_GET['postcode'])) {
         reset($addresses);
 
         //for now just use the 2nd address in the list (sometimes the 1st address is a special one)
-        if(next($addresses) === false) reset($addresses);
+        //if(next($addresses) === false) reset($addresses);
 
         //do {
             // get current UPRN
